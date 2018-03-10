@@ -139,37 +139,44 @@ city_stats_df.head()
 
 
 ```python
-numrides = city_stats['Total Rides']
-avgfare = city_stats['Avg Fare']
-types = city_stats['Type']
-drivers = city_stats['Drivers Total']
-
-x_values = [c for c in numrides]
-y_values = [af for af in avgfare]
-sizings = [d*10 for d in drivers]
-
-typecolors = {'Urban':'r','Suburban':'b','Rural':'y'}
-colors = [typecolors[y] for y in types]
+urban = city_stats_df.loc[city_stats_df['Type']=='Urban',:]
+suburban = city_stats_df.loc[city_stats_df['Type']=='Suburban',:]
+rural = city_stats_df.loc[city_stats_df['Type']=='Rural',:]
 
 fig = plt.figure(figsize=(10, 10))
+ax=fig.add_subplot(111)
+
+size_u = [x*10 for x in urban['Drivers Total']]
+size_s = [x*10 for x in suburban['Drivers Total']]
+size_r = [x*10 for x in rural['Drivers Total']]
+
+#create scatter plots from the dataframes
+ax.scatter(urban['Total Rides'],urban['Avg Fare'], 
+            edgecolor='black',alpha=0.25, s=size_u, 
+            c='r', label='Urban')
+ax.scatter(suburban['Total Rides'],suburban['Avg Fare'], 
+            edgecolor='black',alpha=0.25,
+            c='b', s=size_s,label='Suburban')
+ax.scatter(rural['Total Rides'],rural['Avg Fare'], s=size_r, 
+            edgecolor='black',alpha=0.25,
+            c='g', label='Rural')
 
 plt.title('Pyber Ride sharing data')
 plt.xlabel('Total Number of Rides')
 plt.ylabel('Average Fare per city')
+plt.legend(loc='best')
 
-hand = plt.scatter(
-    x_values,
-    y_values,
-    color = colors,
-    s = sizings,
-    edgecolor='black',
-    alpha=0.25
-)
 ```
 
 
+
+
+    <matplotlib.legend.Legend at 0x115064ba8>
+
+
+
+
 ```python
-plt.legend(typecolors)
 plt.show()
 ```
 
