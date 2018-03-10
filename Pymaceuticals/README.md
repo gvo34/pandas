@@ -203,6 +203,8 @@ plt.show()
 
 
 ```python
+import seaborn as sns
+
 start_c = filtered_c.loc[filtered_c['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
 end_c = filtered_c.loc[filtered_c['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
 changes_c = 100*((end_c-start_c)/start_c)
@@ -221,10 +223,10 @@ changes_p = 100*((end_p-start_p)/start_p)
 
 index = np.arange(4)
 values = [changes_c,changes_i,changes_k,changes_p]
+
 fig, ax = plt.subplots(figsize=(15,7))
-plt.xticks(index, studydrugs)
-import seaborn as sns
 sns.barplot(index,values)
+plt.xticks(index, studydrugs)
 plt.grid()
 plt.ylabel('% Tumor Volume Change')
 for a in index:
