@@ -44,15 +44,7 @@ filtered_k = combined_df.loc[combined_df['Drug'] =='Ketapril', :]
 filtered_p = combined_df.loc[combined_df['Drug'] =='Placebo', :]
 
 x_values = np.arange(0,50,5)
-len(x_values)
 ```
-
-
-
-
-    10
-
-
 
 ### Tumor response to treatment
 
@@ -84,7 +76,7 @@ plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
 
 
 
-    <matplotlib.collections.PathCollection at 0x10e59b470>
+    <matplotlib.collections.PathCollection at 0x1a1d787f98>
 
 
 
@@ -133,7 +125,7 @@ plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
 
 
 
-    <matplotlib.collections.PathCollection at 0x10e7ab940>
+    <matplotlib.collections.PathCollection at 0x1a1d9a5198>
 
 
 
@@ -189,7 +181,7 @@ plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
 
 
 
-    <matplotlib.collections.PathCollection at 0x10e9bd748>
+    <matplotlib.collections.PathCollection at 0x1a1dbaefd0>
 
 
 
@@ -213,35 +205,37 @@ plt.show()
 ```python
 start_c = filtered_c.loc[filtered_c['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
 end_c = filtered_c.loc[filtered_c['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_c = (end_c-start_c)/start_c
+changes_c = 100*((end_c-start_c)/start_c)
 
 start_i = filtered_i.loc[filtered_i['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
 end_i = filtered_i.loc[filtered_i['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_i = (end_i-start_i)/end_i
+changes_i = 100*((end_i-start_i)/start_i)
 
 start_k = filtered_k.loc[filtered_k['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
 end_k = filtered_k.loc[filtered_k['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_k = (end_k-start_k)/end_k
+changes_k = 100*((end_k-start_k)/start_k)
 
 start_p = filtered_p.loc[filtered_p['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
 end_p = filtered_p.loc[filtered_p['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_p = (end_p-start_p)/end_p
-
-fig, ax = plt.subplots(figsize=(15,7))
+changes_p = 100*((end_p-start_p)/start_p)
 
 index = np.arange(4)
 values = [changes_c,changes_i,changes_k,changes_p]
-print(values)
+fig, ax = plt.subplots(figsize=(15,7))
 plt.xticks(index, studydrugs)
-plt.bar(index,values)
+import seaborn as sns
+sns.barplot(index,values)
 plt.grid()
 plt.ylabel('% Tumor Volume Change')
+for a in index:
+    plt.annotate(
+            '{:,.2f}%'.format(values[a]),  # Use values formated as label
+            (a, values[a]/2),              # Place label at center of the bar
+            ha='center')                   # align to center
+
 plt.show()
 ```
 
-    [-0.19475302667894173, 0.3156472480598783, 0.3631741223029995, 0.33905255774326215]
 
-
-
-![png](output_16_1.png)
+![png](output_16_0.png)
 
