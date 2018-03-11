@@ -35,50 +35,40 @@ combined_df = pd.merge(mouse_df,clinical_df,on='Mouse ID',how='outer')
 
 ```python
 # Extract data for only the drugs under study 
-studydrugs = ['Capomulin','Infubinol','Ketrapil','Placebo']
+filtered = combined_df.loc[((combined_df['Drug'] =='Capomulin') |
+                  (combined_df['Drug'] =='Infubinol') |
+                  (combined_df['Drug'] =='Ketapril')  |
+                  (combined_df['Drug'] =='Placebo')), :]
 
-fig, ax = plt.subplots(figsize=(15,7))
-filtered_c = combined_df.loc[combined_df['Drug'] =='Capomulin', :]
-filtered_i = combined_df.loc[combined_df['Drug'] =='Infubinol', :]
-filtered_k = combined_df.loc[combined_df['Drug'] =='Ketapril', :]
-filtered_p = combined_df.loc[combined_df['Drug'] =='Placebo', :]
-
-x_values = np.arange(0,50,5)
+studydrugs = ['Capomulin','Infubinol','Ketapril','Placebo']
+markers = {'Capomulin':'o','Infubinol':'^','Ketapril':'s','Placebo':'*'}
+colors = {'Capomulin':'red','Infubinol':'blue','Ketapril':'green','Placebo':'magenta'}
+x_index = np.arange(0,50,5)
 ```
 
 ### Tumor response to treatment
 
 
 ```python
-c_values = filtered_c.groupby('Timepoint')['Tumor Volume (mm3)'].mean()
-i_values = filtered_i.groupby('Timepoint')['Tumor Volume (mm3)'].mean()
-k_values = filtered_k.groupby('Timepoint')['Tumor Volume (mm3)'].mean()
-p_values = filtered_p.groupby('Timepoint')['Tumor Volume (mm3)'].mean()
+tumor_response = pd.DataFrame(filtered.groupby(['Drug','Timepoint'])['Tumor Volume (mm3)'].mean())
+filtered_df = pd.DataFrame(tumor_response.unstack(level=0))
 
-c_err = filtered_c.groupby('Timepoint')['Tumor Volume (mm3)'].sem()
-i_err = filtered_i.groupby('Timepoint')['Tumor Volume (mm3)'].sem()
-k_err = filtered_k.groupby('Timepoint')['Tumor Volume (mm3)'].sem()
-p_err = filtered_p.groupby('Timepoint')['Tumor Volume (mm3)'].sem()
+tumor_error = pd.DataFrame(filtered.groupby(['Drug','Timepoint'])['Tumor Volume (mm3)'].sem())
+filtered_err = pd.DataFrame(tumor_error.unstack(level=0))
 
-plt.errorbar(x_values, c_values, c_err, elinewidth=0.5, ecolor='red',ls='dashed',lw=0.5,color='red')
-plt.errorbar(x_values, i_values, i_err, elinewidth=0.5, ecolor='blue',ls='dashed',lw=0.5,color='blue')
-plt.errorbar(x_values, k_values, k_err, elinewidth=0.5, ecolor='green',ls='dashed',lw=0.5,color='green')
-plt.errorbar(x_values, p_values, p_err, elinewidth=0.5, ecolor='magenta',ls='dashed',lw=0.5,color='magenta')
+fig, ax = plt.subplots(figsize=(15,7))
+for d in studydrugs:
+    plt.errorbar(x_index, 
+                 filtered_df['Tumor Volume (mm3)'][d], 
+                 filtered_err['Tumor Volume (mm3)'][d],
+                 elinewidth=0.5, ls='dashed', lw=0.5, 
+                 ecolor=colors[d],color=colors[d],label=d)
+    plt.scatter(x_index,
+                filtered_df['Tumor Volume (mm3)'][d],
+                marker=markers[d],color=colors[d],label=d)
 
-plt.scatter(x_values,c_values, marker='o',color="red", label="Capomulin")
-plt.scatter(x_values,i_values, marker='^',color="blue", label="Infubinol")
-plt.scatter(x_values,k_values, marker='s',color="green", label="Ketapril")
-plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
-
-
+    
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x1a1d787f98>
-
-
 
 
 ```python
@@ -91,7 +81,7 @@ plt.show()
 ```
 
 
-![png](output_8_0.png)
+![png](figures/output_8_0.png)
 
 
 ### Metatstastic Response to Treatment
@@ -99,35 +89,25 @@ plt.show()
 
 ```python
 # average the metastatic response for all drugs during the treatment period
-c_values = filtered_c.groupby('Timepoint')['Metastatic Sites'].mean()
-i_values = filtered_i.groupby('Timepoint')['Metastatic Sites'].mean()
-k_values = filtered_k.groupby('Timepoint')['Metastatic Sites'].mean()
-p_values = filtered_p.groupby('Timepoint')['Metastatic Sites'].mean()
+metastatic_response = pd.DataFrame(filtered.groupby(['Drug','Timepoint'])['Metastatic Sites'].mean())
+metastatic_df = pd.DataFrame(metastatic_response.unstack(level=0))
 
-c_err = filtered_c.groupby('Timepoint')['Metastatic Sites'].sem()
-i_err = filtered_i.groupby('Timepoint')['Metastatic Sites'].sem()
-k_err = filtered_k.groupby('Timepoint')['Metastatic Sites'].sem()
-p_err = filtered_p.groupby('Timepoint')['Metastatic Sites'].sem()
+metastatic_error = pd.DataFrame(filtered.groupby(['Drug','Timepoint'])['Metastatic Sites'].sem())
+metastatic_err = pd.DataFrame(metastatic_error.unstack(level=0))
 
 fig, ax = plt.subplots(figsize=(15,7))
+for d in studydrugs:
+    plt.errorbar(x_index, 
+                 metastatic_df['Metastatic Sites'][d], 
+                 metastatic_err['Metastatic Sites'][d],
+                 elinewidth=0.5, ls='dashed', lw=0.5, 
+                 ecolor=colors[d],color=colors[d],label=d)
+    plt.scatter(x_index,
+                metastatic_df['Metastatic Sites'][d],
+                marker=markers[d],color=colors[d],label=d)
 
-plt.errorbar(x_values, c_values, c_err, elinewidth=0.5, ecolor='red',ls='dashed',lw=0.5,color='red')
-plt.errorbar(x_values, i_values, i_err, elinewidth=0.5, ecolor='blue',ls='dashed',lw=0.5,color='blue')
-plt.errorbar(x_values, k_values, k_err, elinewidth=0.5, ecolor='green',ls='dashed',lw=0.5,color='green')
-plt.errorbar(x_values, p_values, p_err, elinewidth=0.5, ecolor='magenta',ls='dashed',lw=0.5,color='magenta')
-
-plt.scatter(x_values,c_values, marker='o',color="red", label="Capomulin")
-plt.scatter(x_values,i_values, marker='^',color="blue", label="Infubinol")
-plt.scatter(x_values,k_values, marker='s',color="green", label="Ketapril")
-plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
+    
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x1a1d9a5198>
-
-
 
 
 ```python
@@ -140,50 +120,34 @@ plt.show()
 ```
 
 
-![png](output_11_0.png)
+![png](figures/output_11_0.png)
 
 
 ### Survival rates
 
 
 ```python
-# Count how many mice per drug per point in time
-c_values = filtered_c.groupby('Timepoint')['Mouse ID'].count()
-i_values = filtered_i.groupby('Timepoint')['Mouse ID'].count()
-k_values = filtered_k.groupby('Timepoint')['Mouse ID'].count()
-p_values = filtered_p.groupby('Timepoint')['Mouse ID'].count()
+# count the mice 
+mice_population = pd.DataFrame(filtered.groupby(['Drug','Timepoint'])['Mouse ID'].count())
+mice_df = pd.DataFrame(mice_population.unstack(level=0))
 
-#get percentage
-c_values = (c_values/25)*100
-i_values = (i_values/25)*100
-k_values = (k_values/25)*100
-p_values = (p_values/25)*100
 
-c_err = c_values.sem()
-i_err = i_values.sem()
-k_err = k_values.sem()
-p_err = p_values.sem()
+# get percentage
+mice_df = (mice_df/25)*100
 
 fig, ax = plt.subplots(figsize=(15,7))
+for d in studydrugs:
+    plt.errorbar(x_index, 
+                 mice_df['Mouse ID'][d], 
+                 0,
+                 elinewidth=0.25, ls='dashed', lw=0.25, 
+                 ecolor=colors[d],color=colors[d],label=d)
 
-plt.errorbar(x_values, c_values, c_err, elinewidth=0.5, ecolor='red',ls='dashed',lw=0.5,color='red')
-plt.errorbar(x_values, i_values, i_err, elinewidth=0.5, ecolor='blue',ls='dashed',lw=0.5,color='blue')
-plt.errorbar(x_values, k_values, k_err, elinewidth=0.5, ecolor='green',ls='dashed',lw=0.5,color='green')
-plt.errorbar(x_values, p_values, p_err, elinewidth=0.5, ecolor='magenta',ls='dashed',lw=0.5,color='magenta')
+    plt.scatter(x_index,
+                mice_df['Mouse ID'][d],
+                marker=markers[d],color=colors[d],label=d)
 
-
-plt.scatter(x_values,c_values, marker='o',color="red", label="Capomulin")
-plt.scatter(x_values,i_values, marker='^',color="blue", label="Infubinol")
-plt.scatter(x_values,k_values, marker='s',color="green", label="Ketapril")
-plt.scatter(x_values,p_values, marker='*',color="magenta", label="Placebo")
 ```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x1a1dbaefd0>
-
-
 
 
 ```python
@@ -196,7 +160,7 @@ plt.show()
 ```
 
 
-![png](output_14_0.png)
+![png](figures/output_14_0.png)
 
 
 ### Summary bar graph
@@ -205,39 +169,38 @@ plt.show()
 ```python
 import seaborn as sns
 
-start_c = filtered_c.loc[filtered_c['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
-end_c = filtered_c.loc[filtered_c['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_c = 100*((end_c-start_c)/start_c)
+# group by drugs and Timepoint 
+f1 = filtered.loc[filtered['Timepoint']==0]
+start = f1.groupby('Drug')['Tumor Volume (mm3)'].mean()
+f2 = filtered.loc[filtered['Timepoint']==45]
+end = f2.groupby('Drug')['Tumor Volume (mm3)'].mean()
 
-start_i = filtered_i.loc[filtered_i['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
-end_i = filtered_i.loc[filtered_i['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_i = 100*((end_i-start_i)/start_i)
-
-start_k = filtered_k.loc[filtered_k['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
-end_k = filtered_k.loc[filtered_k['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_k = 100*((end_k-start_k)/start_k)
-
-start_p = filtered_p.loc[filtered_p['Timepoint']==0,:]['Tumor Volume (mm3)'].mean()
-end_p = filtered_p.loc[filtered_p['Timepoint']==45,:]['Tumor Volume (mm3)'].mean()
-changes_p = 100*((end_p-start_p)/start_p)
-
-index = np.arange(4)
-values = [changes_c,changes_i,changes_k,changes_p]
+change = ((end-start)/start)*100
+print(change)
+index = np.arange(0,4)
 
 fig, ax = plt.subplots(figsize=(15,7))
-sns.barplot(index,values)
+sns.barplot(index,change)
 plt.xticks(index, studydrugs)
 plt.grid()
 plt.ylabel('% Tumor Volume Change')
 for a in index:
     plt.annotate(
-            '{:,.2f}%'.format(values[a]),  # Use values formated as label
-            (a, values[a]/2),              # Place label at center of the bar
+            '{:,.2f}%'.format(change[a]),  # Use values formated as label
+            (a, change[a]/2),              # Place label at center of the bar
             ha='center')                   # align to center
 
 plt.show()
 ```
 
+    Drug
+    Capomulin   -19.475303
+    Infubinol    46.123472
+    Ketapril     57.028795
+    Placebo      51.297960
+    Name: Tumor Volume (mm3), dtype: float64
 
-![png](output_16_0.png)
+
+
+![png](figures/output_16_1.png)
 
