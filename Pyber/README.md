@@ -36,12 +36,6 @@ combined_df = pd.merge(city_df, ride_df,how='outer',on='city')
 #### Key Variables
 
 
-- Average Fare ($) Per City
-- Total Number of Rides Per City
-- Total Number of Drivers Per City
-- City Type (Urban, Suburban, Rural)
-
-
 ```python
 byCity = combined_df.groupby('city')
 percityavg = byCity['fare'].mean()
@@ -58,84 +52,7 @@ city_stats = {'Avg Fare':percityavg,
               'Drivers Total':percitydrivers,
              'Type':percitytype}
 city_stats_df = pd.DataFrame(city_stats)
-city_stats_df.head()
 ```
-
-
-
-
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Avg Fare</th>
-      <th>Drivers Total</th>
-      <th>Total Rides</th>
-      <th>Type</th>
-    </tr>
-    <tr>
-      <th>city</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Alvarezhaven</th>
-      <td>23.928710</td>
-      <td>21</td>
-      <td>31</td>
-      <td>Urban</td>
-    </tr>
-    <tr>
-      <th>Alyssaberg</th>
-      <td>20.609615</td>
-      <td>67</td>
-      <td>26</td>
-      <td>Urban</td>
-    </tr>
-    <tr>
-      <th>Anitamouth</th>
-      <td>37.315556</td>
-      <td>16</td>
-      <td>9</td>
-      <td>Suburban</td>
-    </tr>
-    <tr>
-      <th>Antoniomouth</th>
-      <td>23.625000</td>
-      <td>21</td>
-      <td>22</td>
-      <td>Urban</td>
-    </tr>
-    <tr>
-      <th>Aprilchester</th>
-      <td>21.981579</td>
-      <td>49</td>
-      <td>19</td>
-      <td>Urban</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 ```python
@@ -171,7 +88,7 @@ plt.legend(loc='best')
 
 
 
-    <matplotlib.legend.Legend at 0x115064ba8>
+    <matplotlib.legend.Legend at 0x1a1a045198>
 
 
 
@@ -181,7 +98,7 @@ plt.show()
 ```
 
 
-![png](output_10_0.png)
+![png](figures/output_9_0.png)
 
 
 ### Total Fare by city type
@@ -203,7 +120,7 @@ plt.show()
 
 
 
-![png](output_12_1.png)
+![png](figures/output_11_1.png)
 
 
 ### Total Rides by City
@@ -225,7 +142,7 @@ plt.show()
 
 
 
-![png](output_14_1.png)
+![png](figures/output_13_1.png)
 
 
 ### Total drivers per city type
@@ -247,5 +164,5 @@ plt.show()
 
 
 
-![png](output_16_1.png)
+![png](figures/output_15_1.png)
 
