@@ -1,0 +1,11 @@
+config.py
+__pycache__
+old
+WeatherWorldCities.png
+TemperatureInWeatherWorldCities.png
+HumidityInWeatherWorldCities.png
+WeatherWorldCitiesC.png
+WeatherWorldCitiesH.png
+WeatherWorldCitiesT.png
+WeatherWorldCitiesW.png
+CityWeather-Copy1.ipynb
