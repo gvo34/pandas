@@ -1,0 +1,75 @@
+74 failed requests:
+City: coulihaut error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=coulihaut&units=imperial
+City: galiwinku error ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+City: abiy adi error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=abiy+adi&units=imperial
+City: asau error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=asau&units=imperial
+City: hunza error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=hunza&units=imperial
+City: belushya guba error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=belushya+guba&units=imperial
+City: gollere error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=gollere&units=imperial
+City: tsihombe error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tsihombe&units=imperial
+City: skagastrond error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=skagastrond&units=imperial
+City: deh rawud error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=deh+rawud&units=imperial
+City: ngukurr error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=ngukurr&units=imperial
+City: paucartambo error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=paucartambo&units=imperial
+City: solsvik error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=solsvik&units=imperial
+City: qui nhon error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=qui+nhon&units=imperial
+City: olafsvik error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=olafsvik&units=imperial
+City: kawana waters error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=kawana+waters&units=imperial
+City: mahanje error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=mahanje&units=imperial
+City: illoqqortoormiut error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=illoqqortoormiut&units=imperial
+City: sulina error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=sulina&units=imperial
+City: grand river south east error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=grand+river+south+east&units=imperial
+City: acarau error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=acarau&units=imperial
+City: jamestown error ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+City: louisbourg error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=louisbourg&units=imperial
+City: padre bernardo error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=padre+bernardo&units=imperial
+City: kamenskoye error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=kamenskoye&units=imperial
+City: lolua error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=lolua&units=imperial
+City: tumannyy error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tumannyy&units=imperial
+City: saleaula error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=saleaula&units=imperial
+City: novoyegoryevskoye error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=novoyegoryevskoye&units=imperial
+City: umzimvubu error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=umzimvubu&units=imperial
+City: bac lieu error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=bac+lieu&units=imperial
+City: domoni error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=domoni&units=imperial
+City: shchelyayur error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=shchelyayur&units=imperial
+City: tidore error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tidore&units=imperial
+City: taolanaro error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=taolanaro&units=imperial
+City: barbar error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barbar&units=imperial
+City: akkermanovka error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=akkermanovka&units=imperial
+City: amderma error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=amderma&units=imperial
+City: jibuti error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=jibuti&units=imperial
+City: hamilton error ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+City: palabuhanratu error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=palabuhanratu&units=imperial
+City: malwan error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=malwan&units=imperial
+City: tubruq error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tubruq&units=imperial
+City: bengkulu error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=bengkulu&units=imperial
+City: malakal error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=malakal&units=imperial
+City: asfi error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=asfi&units=imperial
+City: andenes error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=andenes&units=imperial
+City: nam tha error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=nam+tha&units=imperial
+City: yanchukan error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=yanchukan&units=imperial
+City: marcona error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=marcona&units=imperial
+City: tucuma error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tucuma&units=imperial
+City: attawapiskat error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=attawapiskat&units=imperial
+City: samusu error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=samusu&units=imperial
+City: maningrida error ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+City: doctor pedro p. pena error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=doctor+pedro+p.+pena&units=imperial
+City: karauzyak error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=karauzyak&units=imperial
+City: uwayl error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=uwayl&units=imperial
+City: barentsburg error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barentsburg&units=imperial
+City: nizhneyansk error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=nizhneyansk&units=imperial
+City: tulagi error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=tulagi&units=imperial
+City: mormugao error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=mormugao&units=imperial
+City: urumqi error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=urumqi&units=imperial
+City: haibowan error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=haibowan&units=imperial
+City: labutta error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=labutta&units=imperial
+City: barawe error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barawe&units=imperial
+City: korla error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=korla&units=imperial
+City: macaboboni error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=macaboboni&units=imperial
+City: staryy saltiv error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=staryy+saltiv&units=imperial
+City: mys shmidta error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=mys+shmidta&units=imperial
+City: sentyabrskiy error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=sentyabrskiy&units=imperial
+City: bairiki error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=bairiki&units=imperial
+City: clinton error ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+City: acuna error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=acuna&units=imperial
+City: ondorhaan error 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=ondorhaan&units=imperial
