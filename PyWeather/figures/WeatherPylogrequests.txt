@@ -1,0 +1,33 @@
+LOGFILE for City Weather Requests
+City: carnarvon
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=carnarvon&units=imperial
+Response 200
+City: vaini
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=vaini&units=imperial
+Response 200
+City: cape town
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=cape+town&units=imperial
+Response 200
+City: barentsburg
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barentsburg&units=imperial
+Response 404
+Error: 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barentsburg&units=imperial
+City: rikitea
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=rikitea&units=imperial
+Response 200
+City: butaritari
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=butaritari&units=imperial
+Response 200
+City: pevek
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=pevek&units=imperial
+Response 200
+City: la ronge
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=la+ronge&units=imperial
+Response 200
+City: illoqqortoormiut
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=illoqqortoormiut&units=imperial
+Response 404
+Error: 404 Client Error: Not Found for url: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=illoqqortoormiut&units=imperial
+City: barrow
+Request: http://api.openweathermap.org/data/2.5/weather?appid=d75efe61f7556916a03425f813510369&q=barrow&units=imperial
+Response 200

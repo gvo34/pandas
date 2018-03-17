@@ -4,7 +4,7 @@ The following is a Python script to help visualize the weather patterns of 500+ 
 - The cities near the ecuator (with latitude = 0) show higher temperatures within a range of 60F to approx 100F. There is a strong negative correlation between the temperature and latitide. In other words, the more north a city is the lower the temperature reported. 
 - The wind speed average around 8 to 10 mph across all sample cities. But otherwise show a weak correlation with respect to the latitude.
 - The % cloudiness does not show to have any correlation with latitude. It averages around 40% but with a large variance of apprx 35. 
-- The humidty % collected for this sample average is between 75% and 80%, with a large variance of 22 showing a weak correlation with latitude.
+- The humidty % collected for this sample average is between 75% and 80%, with a large variance of 21 showing a weak correlation with latitude.
 
 
 ```python
@@ -13,6 +13,7 @@ import requests as req
 import time
 from citipy import citipy
 from random import randrange
+from pprint import pprint
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -30,6 +31,8 @@ output_temp = "figures/WeatherPyTemperature.png"
 output_cloud = "figures/WeatherPyCloudiness.png"
 output_windsp = "figures/WeatherPyWindspeed.png"
 output_humid ="figures/WeatherPyHumidity.png"
+output_log = "log/WeatherPylogrequests.txt"
+output_err = "log/WeatherPylogerrors.txt"
 ```
 
 
@@ -45,7 +48,7 @@ for lat, lon in coordinates:
 print(f"From {len(coordinates)} random coordinates we generated a list of {len(cities)} different cities")
 ```
 
-    From 1500 random coordinates we generated a list of 633 different cities
+    From 1500 random coordinates we generated a list of 632 different cities
 
 
 
@@ -67,32 +70,62 @@ params = {'appid': OpenWeather,
 # Loop through the list of cities and perform a request for data on each
 weather_data = []
 request_errors =[]
+waiting = "|/-\\"
+widx = 0
 
-for city in cities:
-    # Get weather data
-    params['q'] = city
-    try:
-        response = req.get(url, params=params)
-        response.raise_for_status()
-        weather_json = response.json()
-        weather_data.append({'name':weather_json['name'],
-                      'temperature':weather_json["main"]["temp"],
-                      'humidity':weather_json["main"]["humidity"],
+with open(output_log, 'w', newline='') as logfile:
+    logfile.write("LOGFILE for City Weather Requests")
+    for city in cities:
+        # Get weather data
+        params['q'] = city
+        try:
+            response = req.get(url, params=params)
+            response.raise_for_status()
+            weather_json = response.json()
+            weather_data.append({'name':weather_json['name'],
+                                 'temperature':weather_json["main"]["temp"],
+                                'humidity':weather_json["main"]["humidity"],
                       'windspeed':weather_json["wind"]["speed"],
                       'cloudiness':weather_json["clouds"]["all"],
                       'latitude':weather_json["coord"]["lat"],
                       'longitude':weather_json['coord']['lon']})
-        # show some progress and allow for time between server requests
-        print('.',end='')
-        time.sleep(1)
-    except req.exceptions.RequestException as e:
-        request_errors.append('str(e)')
-        
-print(f"Attempted {len(cities)} requests to Open Weather with random coordinates. {len(request_errors)} attempts failed")        
-
+            # log request
+            logfile.write("\nCity: "+city +
+                          "\nRequest: "+ str(response.url)+
+                          "\nResponse " + str(response.status_code))
+            
+            # show some progress and allow for time between server requests
+            print("Waiting "+ waiting[widx % len(waiting)] + "\r",end='')
+            widx += 1
+            time.sleep(.25)
+        except req.exceptions.RequestException as e:
+            request_errors.append("City: "+ city + " error " + str(e)+'\n')
+            logfile.write("\nCity: "+city +
+                          "\nRequest: "+ str(response.url)+
+                          "\nResponse " + str(response.status_code) +
+                         "\nError: "+str(e))
+            
+fails = len(request_errors)
+total = len(cities)
+success = total - fails
+print("\r Completed")
+print(f"{success} Successful requests from Open Weather. From a total of {len(cities)} attempts of random coordinates.")  
+print(f"See request log in {output_log}")
+print("--------------------------------")
+if len(request_errors)>0:
+    with open(output_err,'w', newline='\n') as errfile:
+        print(f"See error log in {output_err}")
+        errfile.write(f"{len(request_errors)} failed requests:\n")
+        errfile.writelines(request_errors)
+        #for err in request_errors:
+        #    errfile.write(err)
 ```
 
-    Attempted 633 requests to Open Weather with random coordinates. 68 attempts failed
+     Completed
+    558 Successful requests from Open Weather. From a total of 632 attempts of random coordinates.
+    See request log in log/WeatherPylogrequests.txt
+    --------------------------------
+    See error log in log/WeatherPylogerrors.txt
 
 
 
@@ -126,6 +159,7 @@ city_weather_df.head()
       <th>cloudiness</th>
       <th>humidity</th>
       <th>latitude</th>
+      <th>longitude</th>
       <th>name</th>
       <th>temperature</th>
       <th>windspeed</th>
@@ -134,48 +168,53 @@ city_weather_df.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>8</td>
-      <td>100</td>
-      <td>9.96</td>
-      <td>Ranong</td>
-      <td>81.4</td>
-      <td>6.24</td>
+      <td>75</td>
+      <td>62</td>
+      <td>37.46</td>
+      <td>-122.43</td>
+      <td>Half Moon Bay</td>
+      <td>54.14</td>
+      <td>11.41</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>90</td>
-      <td>79</td>
-      <td>52.06</td>
-      <td>Achim</td>
-      <td>39.2</td>
-      <td>13.87</td>
+      <td>92</td>
+      <td>92</td>
+      <td>37.02</td>
+      <td>111.92</td>
+      <td>Jiexiu</td>
+      <td>31.64</td>
+      <td>2.71</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>12</td>
-      <td>100</td>
-      <td>0.53</td>
-      <td>Thinadhoo</td>
-      <td>81.9</td>
-      <td>1.32</td>
+      <td>75</td>
+      <td>69</td>
+      <td>-17.53</td>
+      <td>-149.33</td>
+      <td>Tiarei</td>
+      <td>80.60</td>
+      <td>11.41</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>75</td>
-      <td>66</td>
-      <td>-42.88</td>
-      <td>Hobart</td>
-      <td>53.6</td>
-      <td>4.70</td>
+      <td>0</td>
+      <td>96</td>
+      <td>16.32</td>
+      <td>121.70</td>
+      <td>Dumabato</td>
+      <td>71.01</td>
+      <td>3.71</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0</td>
-      <td>61</td>
-      <td>60.17</td>
-      <td>Helsinki</td>
-      <td>15.8</td>
-      <td>9.17</td>
+      <td>68</td>
+      <td>-37.88</td>
+      <td>147.99</td>
+      <td>Lakes Entrance</td>
+      <td>74.34</td>
+      <td>5.28</td>
     </tr>
   </tbody>
 </table>
@@ -235,7 +274,7 @@ plt.legend(loc='best')
 plt.show()
 ```
 
-    Avg = 73.94336283185841, Variance = 22.632282050181548
+    Avg = 76.1236559139785, Variance = 21.277278098266688
 
 
 
@@ -265,7 +304,7 @@ plt.legend(loc='best')
 plt.show()
 ```
 
-    Avg = 40.15221238938053, Variance = 34.93857095909948
+    Avg = 39.74372759856631, Variance = 35.02316117592912
 
 
 
@@ -295,7 +334,7 @@ plt.legend(loc='best')
 plt.show()
 ```
 
-    Avg = 8.733646017699101, Variance = 6.062160437109402
+    Avg = 8.098458781362014, Variance = 5.699604520998323
 
 
 
