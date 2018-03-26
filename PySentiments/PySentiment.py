@@ -59,11 +59,11 @@ def human_tweet(tweet):
 
 
 def collect_tweets(target_news,outcsv):
-    oldest_tweet = ""
+    
     sentiments =[]
     for search_term in target_news:
         compound_list = []
-
+        oldest_tweet = ""
         for x in range(5): 
             public_tweets = api.search(
                             search_term,
@@ -73,11 +73,16 @@ def collect_tweets(target_news,outcsv):
             for tweet in public_tweets["statuses"]:
                 if human_tweet(tweet['user']):
                     target_string = tweet['text']
-                    compound = analyzer.polarity_scores(target_string)["compound"]
-                    sentiments.append({'news_outlet':search_term,
+                    vader_scores = analyzer.polarity_scores(target_string)
+                    tweet_analysis = {'news_outlet':search_term,
                                        'date':tweet['created_at'],
-                                       'compound_sent':compound,
-                                       'tweet':target_string})
+                                       'compound':vader_scores["compound"],
+                                       'positive':vader_scores["pos"],
+                                       'negative':vader_scores["neg"],
+                                       'neutral':vader_scores["neu"],
+                                       'tweet':target_string}
+                    sentiments.append(tweet_analysis)
+                    compound = vader_scores["compound"]
                     compound_list.append(compound)
                 oldest_tweet = tweet['id']
 #     # Store the Average Sentiments
@@ -88,8 +93,10 @@ def collect_tweets(target_news,outcsv):
     sentiment_df = pd.DataFrame(sentiments) 
     # Update date and sort
     sentiment_df['seconds ago'] = sentiment_df['date'].map(seconds_ago)
+    sentiment_df = sentiment_df.sort_values("seconds ago")
     sentiment_df.to_csv(outcsv+".csv")
-    
+    print(f"... collected {len(sentiment_df)} total tweets")
+
     
 def create_plots(filename):
     with open(filename+".csv") as sentimentfile:
@@ -97,20 +104,18 @@ def create_plots(filename):
         print(sentiment_df.head())
         
         psd = sentiment_df.reset_index()
-        fig = plt.figure(figsize=(10, 10))
-        ax=fig.add_subplot(111)
-        sns.lmplot(x="index", y="compound_sent", hue="news_outlet",data=psd)
+        sns.lmplot(x="index", y="compound", hue="news_outlet",data=psd, size=9, fit_reg=False)
         title = "Sentiment Analysis of Media Tweets " + today.strftime("%a %b %d %Y")
         plt.title(title)
         plt.ylabel("Tweets polarity")
         plt.xlabel("Tweets ago")
-        plt.xlim(200,0) # inverse the x- axis to show decrease over time
+        plt.xlim(len(psd),0) # inverse the x- axis to show decrease over time
 
         # Save the figure1
         plt.savefig(filename+"_sentiment.png")
         plt.show()
 
-        averages = sentiment_df.groupby("news_outlet")["compound_sent"].mean()
+        averages = sentiment_df.groupby("news_outlet")["compound"].mean()
         x_values = np.arange(len(averages))
         sns.barplot(x_values, averages)
         plt.xticks(x_values, target_news)
@@ -134,6 +139,6 @@ def create_plots(filename):
 target_news = ('@BBCWorld','@CBSNews', '@CNN', '@FoxNews', '@nytimes')
 tweet_data_file = "output/tweet_data_media"
 
-#collect_tweets(target_news,tweet_data_file)
+collect_tweets(target_news,tweet_data_file)
 create_plots(tweet_data_file)
         
