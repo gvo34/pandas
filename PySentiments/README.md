@@ -155,9 +155,9 @@ create_plots(tweet_data_file)
 ```
 
 
-![png](output_5_0.png)
+![png](output/output_5_0.png)
 
 
 
-![png](output_5_1.png)
+![png](output/output_5_1.png)
 
