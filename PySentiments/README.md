@@ -32,7 +32,7 @@ today
 
 
 
-    datetime.datetime(2018, 3, 25, 21, 9, 34, 434402)
+    datetime.datetime(2018, 3, 26, 12, 59, 51, 27954)
 
 
 
@@ -78,28 +78,32 @@ def collect_tweets(target_news,outcsv):
             for tweet in public_tweets["statuses"]:
                 if human_tweet(tweet['user']):
                     target_string = tweet['text']
-                    compound = analyzer.polarity_scores(target_string)["compound"]
-                    sentiments.append({'news_outlet':search_term,
+                    vader_scores = analyzer.polarity_scores(target_string)
+                    tweet_analysis = {'news_outlet':search_term,
                                        'date':tweet['created_at'],
-                                       'compound_sent':compound,
-                                       'tweet':target_string})
+                                       'compound':vader_scores["compound"],
+                                       'positive':vader_scores["pos"],
+                                       'negative':vader_scores["neg"],
+                                       'neutral':vader_scores["neu"],
+                                       'tweet':target_string}
+                    sentiments.append(tweet_analysis)
                 oldest_tweet = tweet['id']
     # Aggregate into a dataframe the data collected
     sentiment_df = pd.DataFrame(sentiments) 
+
     # Update date and sort
     sentiment_df['seconds ago'] = sentiment_df['date'].map(seconds_ago)
     sentiment_df = sentiment_df.sort_values("seconds ago")
     sentiment_df.to_csv(outcsv+".csv",index=False)
     print(f"... collected {len(sentiment_df)} total tweets")
-
+    display(sentiment_df.head())
     
 #define function for plotting     
 def create_plots(filename):
     with open(filename+".csv") as sentimentfile:
         sentiment_df = pd.read_csv(sentimentfile, delimiter=',')        
         psd = sentiment_df.reset_index()
-        
-        sns.lmplot(x="index", y="compound_sent", hue="news_outlet",data=psd, size=9, fit_reg=False)        
+        sns.lmplot(x="index", y="compound", hue="news_outlet",data=psd, size=9, fit_reg=False)        
         title = "Sentiment Analysis of Media Tweets " + today.strftime("%a %b %d %Y")
         plt.title(title)
         plt.ylabel("Tweets polarity")
@@ -110,7 +114,7 @@ def create_plots(filename):
         plt.savefig(filename+"_sentiment.png")
         plt.show()
 
-        averages = sentiment_df.groupby("news_outlet")["compound_sent"].mean()
+        averages = sentiment_df.groupby("news_outlet")["compound"].mean()
         x_values = np.arange(len(averages))
         sns.barplot(x_values, averages)
         plt.xticks(x_values, target_news)
@@ -146,7 +150,97 @@ collect_tweets(target_news,tweet_data_file)
     Collecting tweets for @CNN...
     Collecting tweets for @FoxNews...
     Collecting tweets for @nytimes...
-    ... collected 240 total tweets
+    ... collected 212 total tweets
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>compound</th>
+      <th>date</th>
+      <th>negative</th>
+      <th>neutral</th>
+      <th>news_outlet</th>
+      <th>positive</th>
+      <th>tweet</th>
+      <th>seconds ago</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>126</th>
+      <td>0.4585</td>
+      <td>Mon Mar 26 19:59:38 +0000 2018</td>
+      <td>0.000</td>
+      <td>0.850</td>
+      <td>@FoxNews</td>
+      <td>0.150</td>
+      <td>RT @ainsleyearhardt: .@dbongino: "Trying to di...</td>
+      <td>61213</td>
+    </tr>
+    <tr>
+      <th>178</th>
+      <td>0.0000</td>
+      <td>Mon Mar 26 19:59:38 +0000 2018</td>
+      <td>0.000</td>
+      <td>1.000</td>
+      <td>@nytimes</td>
+      <td>0.000</td>
+      <td>RT @nytimes: Louis Vuitton Names Virgil Abloh ...</td>
+      <td>61213</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>0.4215</td>
+      <td>Mon Mar 26 19:59:37 +0000 2018</td>
+      <td>0.090</td>
+      <td>0.752</td>
+      <td>@FoxNews</td>
+      <td>0.158</td>
+      <td>RT @FoxNews: .@charliekirk11: "They're using a...</td>
+      <td>61214</td>
+    </tr>
+    <tr>
+      <th>128</th>
+      <td>-0.4003</td>
+      <td>Mon Mar 26 19:59:37 +0000 2018</td>
+      <td>0.155</td>
+      <td>0.757</td>
+      <td>@FoxNews</td>
+      <td>0.088</td>
+      <td>@MissTygrr @FoxNews Yeah old bag. Look at your...</td>
+      <td>61214</td>
+    </tr>
+    <tr>
+      <th>129</th>
+      <td>-0.6908</td>
+      <td>Mon Mar 26 19:59:37 +0000 2018</td>
+      <td>0.825</td>
+      <td>0.175</td>
+      <td>@FoxNews</td>
+      <td>0.000</td>
+      <td>@FoxNews terrorist</td>
+      <td>61214</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
@@ -155,9 +249,9 @@ create_plots(tweet_data_file)
 ```
 
 
-![png](output/output_5_2.png)
+![png](output/output_5_0.png)
 
 
 
-![png](output/output_5_3.png)
+![png](output/output_5_1.png)
 
